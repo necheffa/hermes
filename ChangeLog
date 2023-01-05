@@ -1,0 +1,4 @@
+2023-01-04 Alexander Necheff <alex@necheff.net>
+    * Set library version to 1.0.0, using semantic versioning.
+    * Set application version to 1.0.0, using semantic versioning.
+    * Initial release; support notifications via SMTP.
