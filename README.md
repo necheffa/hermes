@@ -1,4 +1,4 @@
-# nsddyn
+# hermes
 
 Hermes provides a mechanism to notify someone about cronjob failures.
 
