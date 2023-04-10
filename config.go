@@ -19,6 +19,7 @@
 package hermes
 
 import (
+	"encoding/json"
 	"errors"
 	"os"
 )
@@ -39,6 +40,11 @@ const (
 	Passwd   = "HERMES_PASSWD"
 )
 
+const (
+	configPrefix = "/opt/catloaf/etc"
+	configFile   = "hermes.conf"
+)
+
 type Configuration struct {
 	Sender   string
 	Receiver string
@@ -47,7 +53,96 @@ type Configuration struct {
 	Passwd   string
 }
 
+type FileOptions struct {
+	Sender   string
+	Receiver string
+	Host     string
+	Port     string
+	Password string
+}
+
+// NewConfiguration is the default entry point for getting the hermes Configuration.
+// Unless you have a good reason to do otherwise, NewConfiguration should be used over other methods.
+// NewConfiguration uses a precedence when evaluating configuration mechanisms, the first to succeed wins.
+// If no mechanism is able to succeed, Configuration is undefined and err != nil.
+// Mechanism precedence is as follows:
+// 1. Configuration file in the default location. [NewDefaultFileConfiguration()]
+// 2. Environment variables. [NewEnvConfiguration()]
 func NewConfiguration() (*Configuration, error) {
+	_, err := os.Stat(configPrefix + "/" + configFile)
+	if os.IsNotExist(err) {
+		return NewEnvConfiguration()
+	}
+	return NewDefaultFileConfiguration()
+}
+
+// NewDefaultFileConfiguration returns a hermes Configuration with options based on a configuration file in the default location.
+// If there is a problem reading the file, the returned Configuration is undefined and err != nil.
+// The default location of the config file is: /opt/catloaf/etc/hermes.conf
+func NewDefaultFileConfiguration() (*Configuration, error) {
+	configFilePath := configPrefix + "/" + configFile
+	return NewFileConfiguration(configFilePath)
+}
+
+// NewFileConfiguration returns a hermes Configuration with options based on the specified configuration file.
+// If there is a problem reading the file, the returned Configuration is undefined and err != nil.
+func NewFileConfiguration(configFilePath string) (*Configuration, error) {
+	_, err := os.Stat(configFilePath)
+	if err != nil {
+		return nil, err
+	}
+
+	file, err := os.Open(configFilePath)
+	if err != nil {
+		return nil, err
+	}
+
+	fo := FileOptions{}
+	decoder := json.NewDecoder(file)
+	err = decoder.Decode(&fo)
+	if err != nil {
+		return nil, err
+	}
+
+	config := new(Configuration)
+
+	if fo.Sender == "" {
+		return nil, ErrSenderNotSet
+	}
+	config.Sender = fo.Sender
+
+	if fo.Receiver == "" {
+		return nil, ErrReceiverNotSet
+	}
+	config.Receiver = fo.Receiver
+
+	if fo.Host == "" {
+		return nil, ErrMailHostNotSet
+	}
+	config.MailHost = fo.Host
+
+	if fo.Port == "" {
+		return nil, ErrMailPortNotSet
+	}
+	config.MailPort = fo.Port
+
+	if fo.Password == "" {
+		return nil, ErrPasswdNotSet
+	}
+	config.Passwd = fo.Password
+
+	return config, nil
+}
+
+// NewEnvConfiguration returns a hermes Configuration with options based on environment variables.
+// If any one of the environment variables is missing, the returned Configuration is undefined and err != nil.
+// The following environment variables are used:
+// HERMES_SENDER
+// HERMES_RECEIVER
+// HERMES_HOST
+// HERMES_PORT
+// HERMES_PASSWD
+func NewEnvConfiguration() (*Configuration, error) {
 	config := new(Configuration)
 
 	sender, ok := os.LookupEnv(Sender)

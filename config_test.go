@@ -28,7 +28,7 @@ import (
 	"os"
 )
 
-var _ = Describe("Configuration", func() {
+var _ = Describe("Environment Variable Configuration", func() {
 
 	BeforeEach(func() {
 		err := os.Setenv(hermes.Sender, "Sender")
@@ -53,7 +53,7 @@ var _ = Describe("Configuration", func() {
 
 		JustBeforeEach(func() {
 			os.Unsetenv(hermes.Sender)
-			config, err = hermes.NewConfiguration()
+			config, err = hermes.NewEnvConfiguration()
 		})
 
 		It("returns sender not set error", func() {
@@ -70,7 +70,7 @@ var _ = Describe("Configuration", func() {
 
 		JustBeforeEach(func() {
 			os.Unsetenv(hermes.Receiver)
-			config, err = hermes.NewConfiguration()
+			config, err = hermes.NewEnvConfiguration()
 		})
 
 		It("returns Receiver not set error", func() {
@@ -87,7 +87,7 @@ var _ = Describe("Configuration", func() {
 
 		JustBeforeEach(func() {
 			os.Unsetenv(hermes.Host)
-			config, err = hermes.NewConfiguration()
+			config, err = hermes.NewEnvConfiguration()
 		})
 
 		It("returns Host not set error", func() {
@@ -104,7 +104,7 @@ var _ = Describe("Configuration", func() {
 
 		JustBeforeEach(func() {
 			os.Unsetenv(hermes.Port)
-			config, err = hermes.NewConfiguration()
+			config, err = hermes.NewEnvConfiguration()
 		})
 
 		It("returns Port not set error", func() {
@@ -121,7 +121,7 @@ var _ = Describe("Configuration", func() {
 
 		JustBeforeEach(func() {
 			os.Unsetenv(hermes.Passwd)
-			config, err = hermes.NewConfiguration()
+			config, err = hermes.NewEnvConfiguration()
 		})
 
 		It("returns Passwd not set error", func() {
@@ -137,7 +137,7 @@ var _ = Describe("Configuration", func() {
 		var err error
 
 		JustBeforeEach(func() {
-			config, err = hermes.NewConfiguration()
+			config, err = hermes.NewEnvConfiguration()
 		})
 
 		It("the returned error is nil", func() {
