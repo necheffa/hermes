@@ -20,6 +20,7 @@ package hermes
 
 import (
 	"net/smtp"
+	"os"
 )
 
 const (
@@ -65,9 +66,16 @@ func (conn *SmtpConnection) MailHost() string {
 }
 
 func (conn *SmtpConnection) SendMessage(msg string) error {
+	hostName, err := os.Hostname()
+	if err != nil {
+		hostName = "Unknown hostname. Got error: " + err.Error()
+	}
+
 	mail := []byte("To: " + conn.To() + MailNewLine +
 		"From: " + conn.From() + MailNewLine +
 		"Subject: ALERT from hermes" + MailNewLine +
+		MailNewLine +
+		"Message from host: " + hostName + MailNewLine +
 		MailNewLine +
 		msg + MailNewLine)
 
