@@ -39,10 +39,9 @@ To protect the file, a hermes user needs to be created to own the file. Make the
 shell access to send messages with hermes. Or, don't set the sgid bit and require membership to the hermes group to limit shell user
 access to the messaging capabilities provided by hermes.
 
-First, create the user and group: `adduser --disabled-login --no-create-home --uid $UID hermes`
-Next, take ownership of the binary and config file: `chown root:hermes /usr/local/bin/hermes && chown root:hermes /opt/catloaf/etc/hermes.conf"`
-Lastly, if desired, set the sgid bit: `chmod 2555 /usr/local/bin/hermes`.
-Or, require group membership instead: `chmod 0550 /usr/local/bin/hermes`.
+1. First, create the user and group: `adduser --disabled-login --no-create-home --uid $UID hermes`
+2. Next, take ownership of the binary and config file: `chown root:hermes /usr/local/bin/hermes && chown root:hermes /opt/catloaf/etc/hermes.conf"`
+3. Lastly, if desired, set the sgid bit: `chmod 2555 /usr/local/bin/hermes`. Or, require group membership instead: `chmod 0550 /usr/local/bin/hermes`.
 
 #### Environment Variables Configuration Mechanism
 
