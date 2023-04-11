@@ -1,3 +1,9 @@
+2023-XX-YY Alexander Necheff <alex@necheff.net>
+    * Set library version to 1.1.0-dev0.
+    * Set application version to 1.1.0-dev0.
+    * Add configuration option using a JSON file.
+    * Update README to show using JSON config file to allow non-root users to send notifications.
+
 2023-01-04 Alexander Necheff <alex@necheff.net>
     * Set library version to 1.0.0, using semantic versioning.
     * Set application version to 1.0.0, using semantic versioning.
