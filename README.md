@@ -43,6 +43,12 @@ access to the messaging capabilities provided by hermes.
 2. Next, take ownership of the binary and config file: `chown root:hermes /usr/local/bin/hermes && chown root:hermes /opt/catloaf/etc/hermes.conf"`
 3. Lastly, if desired, set the sgid bit: `chmod 2555 /usr/local/bin/hermes`. Or, require group membership instead: `chmod 0550 /usr/local/bin/hermes`.
 
+Edit `/etc/crontab` so that jobs which require notification use `hermes` as an OR branch.
+For example: \
+`0  4    15 * *  root    zpool scrub zp0 zp1` \
+Becomes: \
+`0  4    15 * *  root    (zpool scrub zp0 zp1) || hermes -m "Failed to initalize zpool scrub!!!"`
+
 #### Environment Variables Configuration Mechanism
 
 The following environment variables need to be defined and placed into a file such as `/etc/hermes.env`
@@ -59,7 +65,7 @@ Edit `/etc/cronjob` so that jobs which require notification use `hermes` as an O
 For example: \
 `0  4    15 * *  root    zpool scrub zp0 zp1` \
 Becomes: \
-`0  4    15 * *  root    (zpool scrub zp0 zp1) || (. /etc/hermes.env; hermes -m "Failed to initial zpool scrub!!!")`
+`0  4    15 * *  root    (zpool scrub zp0 zp1) || (. /etc/hermes.env; hermes -m "Failed to initialize zpool scrub!!!")`
 
 ### Executing Tests
 
