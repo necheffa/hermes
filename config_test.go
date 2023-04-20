@@ -28,6 +28,124 @@ import (
 	"os"
 )
 
+var _ = Describe("File Configuration", func() {
+	Context("When the specified path does not exist", func() {
+		config, err := hermes.NewFileConfiguration("/does/not/exist.conf")
+
+		It("returns an ErrNotExist error", func() {
+			Expect(errors.Is(err, os.ErrNotExist)).To(BeTrue())
+		})
+
+		It("returns a nil configuration", func() {
+			Expect(config).To(BeNil())
+		})
+	})
+
+	Context("When a valid file is provided", func() {
+		config, err := hermes.NewFileConfiguration("./data/valid.conf")
+
+		It("has a nil error", func() {
+			Expect(err).To(BeNil())
+		})
+
+		It("does not return a nil Configuration", func() {
+			Expect(config).To(Not(BeNil()))
+		})
+
+		It("has the Sender populated", func() {
+			Expect(config.Sender).To(Equal("mysender"))
+		})
+
+		It("has the Receiver populated", func() {
+			Expect(config.Receiver).To(Equal("myreceiver"))
+		})
+
+		It("has the Mail Host populated", func() {
+			Expect(config.MailHost).To(Equal("mymailhost"))
+		})
+
+		It("has the Mail Port populated", func() {
+			Expect(config.MailPort).To(Equal("mymailport"))
+		})
+
+		It("has the Password populated", func() {
+			Expect(config.Passwd).To(Equal("secret"))
+		})
+	})
+
+	Context("When a file is missing the Sender", func() {
+		config, err := hermes.NewFileConfiguration("./data/missing_sender.conf")
+
+		It("returns Sender not set error", func() {
+			Expect(errors.Is(err, hermes.ErrSenderNotSet)).To(BeTrue())
+		})
+
+		It("has a nil config", func() {
+			Expect(config).To(BeNil())
+		})
+	})
+
+	Context("When a file is missing the Receiver", func() {
+		config, err := hermes.NewFileConfiguration("./data/missing_receiver.conf")
+
+		It("returns Receiver not set error", func() {
+			Expect(errors.Is(err, hermes.ErrReceiverNotSet)).To(BeTrue())
+		})
+
+		It("has a nil config", func() {
+			Expect(config).To(BeNil())
+		})
+	})
+
+	Context("When a file is missing the Mail Host", func() {
+		config, err := hermes.NewFileConfiguration("./data/missing_mailhost.conf")
+
+		It("returns Mail Host not set error", func() {
+			Expect(errors.Is(err, hermes.ErrMailHostNotSet)).To(BeTrue())
+		})
+
+		It("has a nil config", func() {
+			Expect(config).To(BeNil())
+		})
+	})
+
+	Context("When a file is missing the Mail Port", func() {
+		config, err := hermes.NewFileConfiguration("./data/missing_mailport.conf")
+
+		It("returns Mail Port not set error", func() {
+			Expect(errors.Is(err, hermes.ErrMailPortNotSet)).To(BeTrue())
+		})
+
+		It("has a nil config", func() {
+			Expect(config).To(BeNil())
+		})
+	})
+
+	Context("When a file is missing the Password", func() {
+		config, err := hermes.NewFileConfiguration("./data/missing_password.conf")
+
+		It("returns Password not set error", func() {
+			Expect(errors.Is(err, hermes.ErrPasswdNotSet)).To(BeTrue())
+		})
+
+		It("has a nil config", func() {
+			Expect(config).To(BeNil())
+		})
+	})
+
+	Context("When a file contains invalid JSON", func() {
+		config, err := hermes.NewFileConfiguration("./data/invalid_json.conf")
+
+		It("returns an error", func() {
+			Expect(err).To(Not(BeNil()))
+		})
+
+		It("has a nil config", func() {
+			Expect(config).To(BeNil())
+		})
+	})
+})
+
 var _ = Describe("Environment Variable Configuration", func() {
 
 	BeforeEach(func() {
