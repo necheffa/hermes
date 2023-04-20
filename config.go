@@ -87,11 +87,6 @@ func NewDefaultFileConfiguration() (*Configuration, error) {
 // NewFileConfiguration returns a hermes Configuration with options based on the specified configuration file.
 // If there is a problem reading the file, the returned Configuration is undefined and err != nil.
 func NewFileConfiguration(configFilePath string) (*Configuration, error) {
-	_, err := os.Stat(configFilePath)
-	if err != nil {
-		return nil, err
-	}
-
 	file, err := os.Open(configFilePath)
 	if err != nil {
 		return nil, err
