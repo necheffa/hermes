@@ -11,6 +11,7 @@ test:
 
 quality:
 	go vet ./...
+	golangci-lint run --enable godox --enable gomnd --enable gosec --enable errorlint --enable gofmt --enable unconvert ./...
 
 clean:
 	rm -f $(COVERLOG) cmd/hermes/hermes
