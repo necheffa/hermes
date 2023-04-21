@@ -1,4 +1,5 @@
 COVERLOG="./coverage.out"
+VERSION=$$(cat cmd/hermes/VERSION)
 
 all: hermes
 
@@ -13,5 +14,8 @@ quality:
 	go vet ./...
 	golangci-lint run --enable godox --enable gomnd --enable gosec --enable errorlint --enable gofmt --enable unconvert ./...
 
+debian: hermes
+	scripts/package-deb $(VERSION)-1
+
 clean:
-	rm -f $(COVERLOG) cmd/hermes/hermes
+	rm -f $(COVERLOG) cmd/hermes/hermes hermes_$(VERSION)-1_amd64.deb
