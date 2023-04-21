@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+
+set -e
+
+WRKDIR="$(mktemp -d)"
+CURDIR="$(pwd)"
+PKGVER="$1"
+PKGDIR="hermes_${PKGVER}_amd64"
+
+function cleanup {
+    rm -rf "$WRKDIR"
+}
+trap cleanup EXIT
+
+if ! [ -f "cmd/hermes/hermes" ]; then
+    echo "The binary doesn't exist, did you run the Makefile?"
+    exit 1
+fi
+
+if [ "$PKGVER" == "" ]; then
+    echo "You need to specify a Debian package version: e.g. ./package-deb 1.1.0-1"
+    exit 1
+fi
+
+cd "$WRKDIR"
+mkdir -p "$PKGDIR"/opt/catloaf/bin
+mkdir -p "$PKGDIR"/opt/catloaf/share
+
+BINDST="$PKGDIR"/opt/catloaf/bin/hermes
+CONFDST="$PKGDIR"/opt/catloaf/share/hermes.conf
+
+cp "$CURDIR"/cmd/hermes/hermes "$BINDST"
+
+SAMPLECONF="{
+\"Sender\":\"senderName\",
+\"Receiver\":\"receiverName\",
+\"Host\":\"mail.yourdomain.tld\",
+\"Port\":\"587\",
+\"Password\":\"secret\"
+}"
+
+echo "$SAMPLECONF" > "$CONFDST"
+
+mkdir -p "$PKGDIR"/DEBIAN
+
+CONTROL="\
+Package: hermes
+Version: $PKGVER
+Architecture: amd64
+Maintainer: Alex Necheff <pkg@necheff.net>
+Homepage: https://www.necheff.net
+Description: Hermes provides a mechanism to notify someone about cronjob failures.
+"
+
+echo "$CONTROL" > "$PKGDIR"/DEBIAN/control
+
+POSTINST="\
+#!/usr/bin/env bash
+
+set -e
+
+adduser --system --group hermes || echo \"hermes user already exists, proceeding anyways.\"
+chown root:hermes /opt/catloaf/bin/hermes
+chmod 2555 /opt/catloaf/bin/hermes
+"
+
+echo "$POSTINST" > "$PKGDIR"/DEBIAN/postinst
+chmod 0555 "$PKGDIR"/DEBIAN/postinst
+
+dpkg-deb --build "$PKGDIR"
+cp "$PKGDIR".deb "$CURDIR"/
+
