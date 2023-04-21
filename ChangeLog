@@ -1,9 +1,10 @@
-2023-XX-YY Alexander Necheff <alex@necheff.net>
-    * Set library version to 1.1.0-dev1.
-    * Set application version to 1.1.0-dev1.
+2023-04-20 Alexander Necheff <alex@necheff.net>
+    * Set library version to 1.1.0.
+    * Set application version to 1.1.0.
     * Add configuration option using a JSON file.
     * Update README to show using JSON config file to allow non-root users to send notifications (issue #2).
     * Add hostname to message body automatically so notification readers know the origin machine (issue #3).
+    * Add capability to generate Debian package to build system.
 
 2023-01-04 Alexander Necheff <alex@necheff.net>
     * Set library version to 1.0.0, using semantic versioning.
