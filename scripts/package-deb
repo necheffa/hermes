@@ -24,10 +24,10 @@ fi
 
 cd "$WRKDIR"
 mkdir -p "$PKGDIR"/opt/catloaf/bin
-mkdir -p "$PKGDIR"/opt/catloaf/share
+mkdir -p "$PKGDIR"/opt/catloaf/share/hermes
 
 BINDST="$PKGDIR"/opt/catloaf/bin/hermes
-CONFDST="$PKGDIR"/opt/catloaf/share/hermes.conf
+CONFDST="$PKGDIR"/opt/catloaf/share/hermes/hermes.conf
 
 cp "$CURDIR"/cmd/hermes/hermes "$BINDST"
 
