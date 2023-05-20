@@ -15,7 +15,7 @@ quality:
 	golangci-lint run --enable godox --enable gomnd --enable gosec --enable errorlint --enable gofmt --enable unconvert ./...
 
 debian: hermes
-	scripts/package-deb $(VERSION)-1
+	scripts/package-deb $(VERSION)
 
 clean:
-	rm -f $(COVERLOG) cmd/hermes/hermes hermes_$(VERSION)-1_amd64.deb
+	rm -f $(COVERLOG) cmd/hermes/hermes hermes_$(VERSION)-*_amd64.deb

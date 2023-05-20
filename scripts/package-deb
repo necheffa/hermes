@@ -2,9 +2,11 @@
 
 set -e
 
+SUBVER="${DEBABI:-1}"
+
 WRKDIR="$(mktemp -d)"
 CURDIR="$(pwd)"
-PKGVER="$1"
+PKGVER="$(echo $1 | tr '-' '~')-$SUBVER"
 PKGDIR="hermes_${PKGVER}_amd64"
 
 function cleanup {
