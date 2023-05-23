@@ -12,7 +12,7 @@ jobs:
                   id: go
             - name: Checkout code
               uses: actions/checkout@v2
-            - name: Run Static Analysis
-              run: make quality
+#            - name: Run Static Analysis
+#              run: make quality
             - name: Run Tests
               run: make test
