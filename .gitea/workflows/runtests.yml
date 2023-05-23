@@ -1,0 +1,18 @@
+name: Hermes Tests
+on: [push]
+jobs:
+    tests:
+        name: Build
+        runs-on: debian-bullseye-slim
+        steps:
+            - name: Setup Go 1.20
+              uses: actions/setup-go@v1
+              with:
+                  go-version: 1.20
+                  id: go
+            - name: Checkout code
+              uses: actions/checkout@v2
+            - name: Run Static Analysis
+              run: make quality
+            - name: Run Tests
+              run: make test
