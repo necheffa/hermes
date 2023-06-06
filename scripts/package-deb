@@ -49,6 +49,7 @@ CONTROL="\
 Package: hermes
 Version: $PKGVER
 Architecture: amd64
+Depends: libc6 (>= 2.31)
 Maintainer: Alex Necheff <pkg@necheff.net>
 Homepage: https://www.necheff.net
 Description: Hermes provides a mechanism to notify someone about cronjob failures.
