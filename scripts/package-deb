@@ -64,6 +64,7 @@ set -e
 adduser --system --group hermes || echo \"hermes user already exists, proceeding anyways.\"
 chown root:hermes /opt/catloaf/bin/hermes
 chmod 2555 /opt/catloaf/bin/hermes
+chown -R root:root /opt/catloaf/share/hermes
 "
 
 echo "$POSTINST" > "$PKGDIR"/DEBIAN/postinst
