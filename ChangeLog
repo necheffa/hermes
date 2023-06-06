@@ -1,3 +1,10 @@
+2023-06-06 Alexander Necheff <alex@necheff.net>
+    * Set library version to 1.1.2.
+    * Set application version to 1.1.2.
+    * Correct file ownership issue of example configuration in Debian package postinst script (issue #8).
+    * Add libc as a dependency in the Debian package manifest (issue #12).
+    * Bumped the dependencies in the go.mod file.
+
 2023-04-22 Alexander Necheff <alex@necheff.net>
     * Set library version to 1.1.1.
     * Set application version to 1.1.1.
