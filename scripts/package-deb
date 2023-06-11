@@ -11,6 +11,12 @@ PKGDIR="hermes_${PKGVER}_amd64"
 
 function cleanup {
     rm -rf "$WRKDIR"
+
+    if [ "$(whoami)" != "root" ]; then
+        echo "Did you remember to build with \`fakeroot\` you silly goose?"
+        echo "If not, you better know what you are doing."
+        exit 1
+    fi
 }
 trap cleanup EXIT
 
@@ -28,10 +34,10 @@ cd "$WRKDIR"
 mkdir -p "$PKGDIR"/opt/catloaf/bin
 mkdir -p "$PKGDIR"/opt/catloaf/share/hermes
 
-BINDST="$PKGDIR"/opt/catloaf/bin/hermes
-CONFDST="$PKGDIR"/opt/catloaf/share/hermes/hermes.conf
+BINDST="$PKGDIR"/opt/catloaf/bin
 
-cp "$CURDIR"/cmd/hermes/hermes "$BINDST"
+cp "$CURDIR"/cmd/hermes/hermes "$BINDST"/
+chmod 2555 "$BINDST"/hermes
 
 SAMPLECONF="{
 \"Sender\":\"senderName\",
@@ -41,6 +47,7 @@ SAMPLECONF="{
 \"Password\":\"secret\"
 }"
 
+CONFDST="$PKGDIR"/opt/catloaf/share/hermes/hermes.conf
 echo "$SAMPLECONF" > "$CONFDST"
 
 mkdir -p "$PKGDIR"/DEBIAN
@@ -49,7 +56,7 @@ CONTROL="\
 Package: hermes
 Version: $PKGVER
 Architecture: amd64
-Depends: libc6 (>= 2.31)
+Depends: libc6 (>= 2.31), catloaf-base-files (>= 1.1.0-1)
 Maintainer: Alex Necheff <pkg@necheff.net>
 Homepage: https://www.necheff.net
 Description: Hermes provides a mechanism to notify someone about cronjob failures.
@@ -64,8 +71,6 @@ set -e
 
 adduser --system --group hermes || echo \"hermes user already exists, proceeding anyways.\"
 chown root:hermes /opt/catloaf/bin/hermes
-chmod 2555 /opt/catloaf/bin/hermes
-chown -R root:root /opt/catloaf/share/hermes
 "
 
 echo "$POSTINST" > "$PKGDIR"/DEBIAN/postinst
