@@ -52,8 +52,8 @@ func main() {
 	}
 
 	if printVersion {
-		msg := "hermes v" + VERSION +
-			"Built using library v" + hermes.Version +
+		msg := "hermes v" + VERSION + "\n" +
+			"Built using library v" + hermes.Version + "\n" +
 			"Copyright (C) 2023\n" +
 			"Alexander Necheff\n" +
 			"hermes is licensed under the terms of the GPLv3."
