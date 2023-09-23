@@ -4,7 +4,7 @@ VERSION=$$(cat cmd/hermes/VERSION)
 all: hermes
 
 hermes:
-	cd cmd/hermes; go build
+	cd cmd/hermes; go build -buildmode=pie
 
 test:
 	ginkgo -r -v --race --trace --coverpkg=necheff.net/hermes --coverprofile=$(COVERLOG) ./...
