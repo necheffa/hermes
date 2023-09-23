@@ -69,8 +69,8 @@ Becomes: \
 
 ### Executing Tests
 
-Hermes requires Ginkgo for testing but tests can be executed with `go test` from the root of the repo.
-Although, it is recommended to use `ginkgo` explicitly rather than `go test` for test execution.
+Hermes requires Ginkgo for testing. The `test` target in the Makefile is the recommended way to execute the test suite.
+This will also display coverage metrics automatically.
 
 ## Licensing
 
