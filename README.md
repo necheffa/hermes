@@ -12,8 +12,8 @@ Copy the `hermes` executable into `/usr/local/bin/` or somewhere reasonable.
 ### Compilation
 
 1. Clone the repo.
-2. `cd hermes/cmd/hermes`
-3. `go build`
+2. `cd hermes && make`
+3. The `cmd/hermes/hermes` binary should now exist.
 
 ### Configuration
 
