@@ -7,13 +7,17 @@ Hermes provides a mechanism to notify someone about cronjob failures.
 Hermes is currently a source-only distribution. Both a Unix-like system and Google Go is required to perform compilation.
 Check the go.mod file for the minimum required Go version.
 
-Copy the `hermes` executable into `/usr/local/bin/` or somewhere reasonable.
-
 ### Compilation
 
 1. Clone the repo.
 2. `cd hermes && make`
 3. The `cmd/hermes/hermes` binary should now exist.
+
+### Installation
+
+The `hermes` executable can be simply `cp`'d into `/usr/local/bin/` or somewhere reasonable.
+
+However, a `debian` target exists in the Makefile which will generate a Debian package provided your system is able to execute `dpkg-deb`.
 
 ### Configuration
 

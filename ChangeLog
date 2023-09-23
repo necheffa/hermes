@@ -3,6 +3,7 @@ XXXX-YY-ZZ Alexander Necheff <alex@necheff.net>
     * Build now produces a position independent executable (issue #14).
     * Correct README to suggest using the Makefile rather than manually executing `go build` (issue #13).
     * Correct README to suggest using the Makefile rather than manually executing `go test` (issue #10).
+    * Update the README to also discuss creating a Debian package as an installation method (issue #9).
 
 2023-09-08 Alexander Necheff <alex@necheff.net>
     * Set version to 1.1.3.
