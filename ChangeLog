@@ -1,5 +1,5 @@
-XXXX-YY-ZZ Alexander Necheff <alex@necheff.net>
-    * Set version to 1.2.0-dev0
+2023-09-23 Alexander Necheff <alex@necheff.net>
+    * Set version to 1.1.4.
     * Build now produces a position independent executable (issue #14).
     * Correct README to suggest using the Makefile rather than manually executing `go build` (issue #13).
     * Correct README to suggest using the Makefile rather than manually executing `go test` (issue #10).
