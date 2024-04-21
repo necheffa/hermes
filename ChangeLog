@@ -1,3 +1,9 @@
+2024-04-21 Alexander Necheff <alex@necheff.net>
+    * Set version to 1.1.5.
+    * Build with AMD64v3 ABI by default.
+    * Update dependencies.
+    * Add improvements to the build system.
+
 2023-09-23 Alexander Necheff <alex@necheff.net>
     * Set version to 1.1.4.
     * Build now produces a position independent executable (issue #14).
