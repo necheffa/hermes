@@ -1,18 +1,20 @@
 COVERLOG="./coverage.out"
 VERSION=$$(cat cmd/hermes/VERSION)
+GOAMD64:=v3
 
 all: hermes
 
 hermes:
-	cd cmd/hermes; go build -buildmode=pie
+	cd cmd/hermes; GOAMD64=$(GOAMD64) go build -buildmode=pie
 
 test:
-	ginkgo -r -v --race --trace --coverpkg=necheff.net/hermes --coverprofile=$(COVERLOG) ./...
+	GOAMD64=$(GOAMD64) ginkgo -r -v --race --trace --coverpkg=necheff.net/hermes --coverprofile=$(COVERLOG) ./...
 	go tool cover -html=$(COVERLOG)
 
 quality:
 	go vet ./...
-	golangci-lint run --enable godox --enable gomnd --enable gosec --enable errorlint --enable gofmt --enable unconvert --enable ginkgolinter ./...
+	golangci-lint run --enable godox --enable gomnd --enable gosec --enable errorlint --enable gofmt --enable unconvert \
+        --enable ginkgolinter ./...
 
 debian: hermes
 	scripts/package-deb $(VERSION)
