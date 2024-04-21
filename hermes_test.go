@@ -1,5 +1,5 @@
 /*
-   Copyright (C) 2023 Alexander Necheff
+   Copyright (C) 2023, 2024 Alexander Necheff
 
    This file is part of hermes.
 
@@ -63,7 +63,7 @@ var _ = Describe("Hermes", func() {
 		err := hermes.Hermes(conn, "fake message")
 
 		It("returns an error", func() {
-			Expect(err).NotTo(BeNil())
+			Expect(err).To(HaveOccurred())
 		})
 	})
 })

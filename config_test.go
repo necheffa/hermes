@@ -1,5 +1,5 @@
 /*
-   Copyright (C) 2023 Alexander Necheff
+   Copyright (C) 2023, 2024 Alexander Necheff
 
    This file is part of hermes.
 
@@ -45,7 +45,7 @@ var _ = Describe("File Configuration", func() {
 		config, err := hermes.NewFileConfiguration("./data/valid.conf")
 
 		It("has a nil error", func() {
-			Expect(err).To(BeNil())
+			Expect(err).ToNot(HaveOccurred())
 		})
 
 		It("does not return a nil Configuration", func() {
@@ -137,7 +137,7 @@ var _ = Describe("File Configuration", func() {
 		config, err := hermes.NewFileConfiguration("./data/invalid_json.conf")
 
 		It("returns an error", func() {
-			Expect(err).To(Not(BeNil()))
+			Expect(err).To(HaveOccurred())
 		})
 
 		It("has a nil config", func() {
@@ -259,7 +259,7 @@ var _ = Describe("Environment Variable Configuration", func() {
 		})
 
 		It("the returned error is nil", func() {
-			Expect(err).To(BeNil())
+			Expect(err).ToNot(HaveOccurred())
 		})
 
 		It("the returned config is not nil", func() {
