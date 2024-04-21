@@ -19,5 +19,8 @@ quality:
 debian: hermes
 	scripts/package-deb $(VERSION)
 
+vulns:
+	govulncheck -show verbose ./...
+
 clean:
 	rm -f $(COVERLOG) cmd/hermes/hermes hermes_$(VERSION)-*_amd64.deb
