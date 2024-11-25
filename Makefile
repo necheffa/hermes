@@ -8,7 +8,7 @@ hermes:
 	cd cmd/hermes; GOAMD64=$(GOAMD64) go build -buildmode=pie
 
 test:
-	GOAMD64=$(GOAMD64) ginkgo -r -v --race --trace --coverpkg=necheff.net/hermes --coverprofile=$(COVERLOG) ./...
+	GOAMD64=$(GOAMD64) ginkgo -r -v -p --race --trace --covermode=atomic --coverpkg=necheff.net/hermes --coverprofile=$(COVERLOG) ./...
 	go tool cover -html=$(COVERLOG)
 
 quality:
