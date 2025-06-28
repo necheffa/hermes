@@ -1,4 +1,4 @@
-COVERLOG="./coverage.out"
+COVERLOG="coverage.out"
 VERSION=$$(cat cmd/hermes/VERSION)
 GOAMD64:=v3
 
