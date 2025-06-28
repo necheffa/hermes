@@ -1,3 +1,7 @@
+2025-06-28 Alexander Necheff <alex@necheff.net>
+    * Set version to 1.1.6.
+    * Update dependencies.
+
 2024-04-21 Alexander Necheff <alex@necheff.net>
     * Set version to 1.1.5.
     * Build with AMD64v3 ABI by default.
